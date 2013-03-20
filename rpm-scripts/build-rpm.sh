@@ -4,7 +4,7 @@
 # * Expects two arguments:
 #   * PACKAGE_NAME: of the generated rpm
 #   * BUILD_NUMBER: to uniquely identify the generated RPM
-# * It will create a rpm in the current directory that installs our custom
+# * It will create a rpm in the `build/` directory that installs our custom
 #   version of node into /opt/PACKAGE_NAME
 
 set -o nounset
@@ -23,6 +23,7 @@ fi
 PACKAGE_NAME=$1
 BUILD_NUMBER=$2
 
+RPM_PATH=build/
 RPM_INSTALL_PATH=/opt/${PACKAGE_NAME}
 VERSION=`git describe --abbrev=0`
 
@@ -44,3 +45,4 @@ fpm -s dir -t rpm \
     --architecture all \
     .
 
+mv `ls -t1 *.rpm | head -1` ${RPM_PATH}
