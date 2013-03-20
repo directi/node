@@ -45,4 +45,5 @@ fpm -s dir -t rpm \
     --architecture all \
     .
 
+if [ ! -d ${RPM_PATH} ]; then mkdir -p ${RPM_PATH}; fi
 mv `ls -t1 *.rpm | head -1` ${RPM_PATH}
